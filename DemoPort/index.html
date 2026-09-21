@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김종균 | 개발자 프로필 - DemoPort</title>
+<meta name="description" content="바이브코딩, Python, HTML5로 아이디어를 빠르게 제품으로 만드는 개발자 김종균의 프로필과 작업물.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="김종균 | 개발자 프로필 - DemoPort">
+<meta property="og:description" content="바이브코딩, Python, HTML5로 아이디어를 빠르게 제품으로 만드는 개발자 김종균의 프로필과 작업물.">
+<meta name="theme-color" content="#0f172a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  // 첫 페인트 전에 테마를 적용해 깜빡임 방지
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("theme"); } catch (e) {}
+    if (t !== "light" && t !== "dark") {
+      t = window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top" aria-label="DemoPort 처음으로">Demo<span>Port</span></a>
+    <nav aria-label="주 메뉴">
+      <ul class="menu">
+        <li><a href="#about">소개</a></li>
+        <li><a href="#skills">기술</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+    </nav>
+    <button id="themeToggle" class="icon-btn" type="button" aria-label="테마 전환">
+      <span aria-hidden="true">◐</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section id="top" class="hero">
+    <div class="container">
+      <p class="eyebrow">DEVELOPER PROFILE</p>
+      <h1>김종균</h1>
+      <p class="lead">바이브코딩으로 아이디어를 빠르게 제품으로 만드는 개발자</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">프로젝트 보기</a>
+        <a class="btn" href="#contact">연락하기</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>소개</h2>
+      <div class="about-grid">
+        <div>
+          <h3>개발 철학</h3>
+          <p>AI와 함께 기획하고 구현하고 개선하는 과정을 빠르게 반복해, 떠오른 아이디어를 실제로 동작하는 결과물로 만듭니다.</p>
+        </div>
+        <div>
+          <h3>작업 방식</h3>
+          <p>작게 만들어 바로 실행해 보고, 피드백을 반영하며 다듬는 빠른 프로토타이핑을 중심으로 일합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section alt">
+    <div class="container">
+      <h2>기술 스택</h2>
+      <div class="cards" id="skillList"></div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>프로젝트</h2>
+      <div class="cards" id="projectList"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt">
+    <div class="container contact">
+      <h2>연락처</h2>
+      <p>협업이나 의뢰 문의는 이메일로 편하게 연락 주세요.</p>
+      <p class="email"><a id="emailLink" href="mailto:jjohnkkim@gmail.com">jjohnkkim@gmail.com</a></p>
+      <button id="copyBtn" class="btn" type="button">이메일 복사</button>
+      <p id="copyMsg" class="copy-msg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> 김종균. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
