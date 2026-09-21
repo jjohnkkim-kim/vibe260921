@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# PyInstaller 빌드 결과물 (news_crawler.spec 은 재빌드용이라 추적)
+build/
+dist/
+
+# 크롤러 실행 결과물
+news_result.json
+stock_top.csv
+*.xlsx
+
+# 편집기 / OS
+.idea/
+.DS_Store
+Thumbs.db
