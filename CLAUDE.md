@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A workspace of small, independent projects (no shared package, no test suite, no linter config). Each top-level script is standalone. Code comments, UI text and docs are in Korean; match that. Platform is Windows (breakout uses `winsound` and the "Malgun Gothic" font).
+A workspace of small, independent projects (no shared package, no root-level test suite or linter). Each top-level script is standalone. Code comments, UI text and docs are in Korean; match that. Platform is Windows (breakout uses `winsound` and the "Malgun Gothic" font).
 
 Dependencies are pinned in `requirements.txt` (a full `pip freeze` of the environment, so it includes unrelated packages). Install with `pip install -r requirements.txt`.
 
@@ -15,8 +15,9 @@ Dependencies are pinned in `requirements.txt` (a full `pip freeze` of the enviro
 - `snake.py`, `breakout.py` — tkinter games. Run: `python snake.py` / `python breakout.py`. Breakout persists its best score in `breakout_best.txt` next to the script.
 - `game01/tetris.html` — single-file HTML5 Tetris; open in a browser.
 - `DemoPort/` — static profile website (`index.html`, `css/`, `js/main.js`, no build step); requirements are in `DemoPort/prd.md`.
-- `DemoBoard/` — Next.js (App Router) + TypeScript + shadcn/ui bulletin board with its own `package.json` and `CLAUDE.md`/`AGENTS.md` (read those first; this Next.js version has breaking changes). Run: `cd DemoBoard && npm run dev`. Posts persist in Supabase (see below) via `src/lib/posts.ts`, mutated by server actions in `src/app/actions.ts`. shadcn here is the Base UI flavor: link-styled buttons use `render={<Link/>}` with `nativeButton={false}`, not `asChild`.
-- `DemoBoard2/` — copy of `DemoBoard` predating the Supabase switch (still stores posts in gitignored `data/posts.json`); its dev server defaults to a different port (`npm run dev -- -p 3001`) so both can run at once.
+- `DemoBoard/` — Next.js (App Router) + TypeScript + shadcn/ui bulletin board with its own `package.json` and `CLAUDE.md`/`AGENTS.md` (read those first; this Next.js version has breaking changes). Run: `cd DemoBoard && npm run dev`; build with `npm run build`, lint with `npm run lint` (no test suite). Posts persist in Supabase (see below) via `src/lib/posts.ts`, mutated by server actions in `src/app/actions.ts`. shadcn here is the Base UI flavor: link-styled buttons use `render={<Link/>}` with `nativeButton={false}`, not `asChild`.
+- `DemoBoard2/` — copy of `DemoBoard` predating the Supabase switch (still stores posts in gitignored `data/posts.json`); same scripts as `DemoBoard`, but its dev server defaults to a different port (`npm run dev -- -p 3001`) so both can run at once.
+- `DemoBoard3/` — separate Next.js + TypeScript + Tailwind + Supabase project (its own `package.json`, `.env.local`, Supabase project `demoboard3`), unrelated to `DemoBoard`/`DemoBoard2`. Adds Supabase Auth (email/password, session via cookies through `@supabase/ssr`) on top of a board: only the post/comment owner can edit or delete, enforced by Postgres RLS (see `DemoBoard3/README.md` for the SQL). Run: `cd DemoBoard3 && npm run dev`; build with `npm run build`, lint with `npm run lint`. Uses Next.js 16's `proxy.ts` (renamed from `middleware.ts`) to refresh the Supabase session cookie on every request. Server Actions in `src/lib/actions/*` always call `redirect()`, even on validation errors (encoded as `?error=<code>` query params read by `StatusBanner`) — a Server Action that returns a value instead of redirecting was observed to make the whole page response hang for 20-30s in this Next.js 16.3.5/Turbopack dev build, so avoid reintroducing that pattern here.
 - `demo.py` — trivial scratch script.
 
 ## Architecture notes
